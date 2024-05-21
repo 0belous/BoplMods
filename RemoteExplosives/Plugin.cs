@@ -2,6 +2,7 @@
 using BoplFixedMath;
 using HarmonyLib;
 using System.Reflection;
+using System.Collections;
 using UnityEngine;
 
 namespace ModName
@@ -19,14 +20,26 @@ namespace ModName
             MethodInfo enginePatched = AccessTools.Method(typeof(enginePatches), "patch");
             harmony.Patch(engine, new HarmonyMethod(enginePatched));
 
-        }
+            MethodInfo smoke = AccessTools.Method(typeof(SmokeGrenadeExplode), "Awake");
+            MethodInfo smokePatched = AccessTools.Method(typeof(smokePatches), "patch");
+            harmony.Patch(smoke, new HarmonyMethod(smokePatched));
 
+        }
         public class enginePatches
         {
             public static void patch(RocketEngine __instance)
             {
-                __instance.radius = (Fix)100f;
+                __instance.radius = (Fix)100;
             }
         }
+
+        public class smokePatches
+        {
+            public static void patch(SmokeGrenadeExplode __instance)
+            {
+                __instance.maxNumberOfSmoke = 10000;
+            }
+        }
+
     }
 }

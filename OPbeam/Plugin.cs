@@ -19,6 +19,10 @@ namespace ModName
             MethodInfo original = AccessTools.Method(typeof(Beam), "Awake");
             MethodInfo patch = AccessTools.Method(typeof(myPatches), "patch");
             harmony.Patch(original, new HarmonyMethod(patch));
+
+            MethodInfo beamobj = AccessTools.Method(typeof(BeamEffect), "Awake");
+            MethodInfo beamobjpatched = AccessTools.Method(typeof(myPatches), "patch");
+            harmony.Patch(beamobj, new HarmonyMethod(beamobjpatched));
         }
 
         public class myPatches
@@ -28,6 +32,14 @@ namespace ModName
                 __instance.angularAimSpeed = (Fix)1f;
                 __instance.maxTime = (Fix)5000f;
                 __instance.maxTimeAir = (Fix)5000f;
+            }
+        }
+
+        public class beamObjectPatches
+        {
+            public static void patch(BeamEffect __instance)
+            {
+                __instance.auraMultiplier = 1000f;
             }
         }
     }

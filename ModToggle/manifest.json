@@ -1,0 +1,7 @@
+{
+  "name": "ModToggle",
+  "version_number": "1.1.0",
+  "website_url": "https://github.com/0belous/BoplMods",
+  "description": "Enable or Disable Mods in the Menu.",
+  "dependencies": [ "BepInEx-BepInExPack-5.4.2100" ]
+}
